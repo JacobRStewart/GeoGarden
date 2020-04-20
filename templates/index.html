@@ -1,0 +1,44 @@
+{% extends "header.html" %}
+
+{% block body %}
+  <div class="crop">
+    <div class="w3-content w3-section w3-animate-opacity" style="max-width:950px; animation-duration: 2s;">
+        <h6><b>Geo Garden</b> is a connective platform to support the Guerilla Gardening community. Guerilla Gardening is the act of planting and maintaining gardens on public or private property, often without the permission of the owners, with the intention of beautifying the area and creating a culture of service and good mental health.</h4>
+        
+    </div>
+  </div>
+  <div id="map">
+  </div>
+  <script>
+  function initMap() {
+  // The location of Uluru
+  var uluru = {lat: -25.344, lng: 131.036};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+  document.getElementById('map'), {zoom: 4, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+  }
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-34SSXD7ZYgVdm7fczOWNHqsYFqGdRW4&callback=initMap">
+  </script>
+  <div class="w3-animate-opacity" style="animation-duration: 4s;">
+    <table width="100%">
+        <tr>
+            <td width="11%"></td>
+            <td width="26%"><p>Botany</p></td>
+            <td width="26%"><p>Community</p></td>
+            <td width="26%"><p>Healthy</p></td>
+            <td width="11%"></td>
+        </tr>
+        <tr>
+            <td width="11%"></td>
+            <td width="26%"><img class="thumb w3-round" sizes="456.20001220703125px" srcset="static/IMG_3531.jpg 640w,static/IMG_3531.jpg 750w,static/IMG_3531.jpg 1080w" src="static/IMG_3531.jpg" style=""></td>
+            <td width="26%"><img class="thumb w3-round" sizes="456.20001220703125px" srcset="static/IMG_3658.jpg 640w,static/IMG_3658.jpg 750w,static/IMG_3658.jpg 1080w" src="static/IMG_3658.jpg" style=""></td>
+            <td width="26%"><img class="thumb w3-round" sizes="456.20001220703125px" srcset="static/IMG_2774-2.jpg 640w,static/IMG_2774-2.jpg 750w,static/IMG_2774-2.jpg 1080w" src="static/IMG_2774-2.jpg" style=""></td>
+            <td width="11%"></td>
+        </tr>
+    </table>
+  </div>
+{% endblock %}

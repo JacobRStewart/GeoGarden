@@ -1,0 +1,38 @@
+<!doctype html>
+<title>{% block title %}Welcome{% endblock %} | Geogarden</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Abel'>
+<div class="container">
+  <h1>Geogarden</h1>
+  <div class="container">
+  {% if g.user.user_type == 'owner' %}
+    <a href="{{ url_for('profile') }}">Dashboard</a> |
+    <a href="{{ url_for('register') }}">Create new contributor</a> |
+    <a href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a>  
+  {% elif g.user.user_type == 'contributor' %} 
+      <a href="{{ url_for('profile') }}">Dashboard</a> |
+      <a href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a>
+  {% elif g.user.user_type == 'admin' %} 
+      <a href="{{ url_for('profile') }}">Dashboard</a> |
+      <a href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a>  
+  {% else %}
+    <a href="{{ url_for('index') }}">Gardens</a> |
+    <a href="{{ url_for('register') }}">Sign Up</a> |
+    <a href="{{ url_for('login') }}">Sign In</a>
+  {% endif %}
+  </div>
+  {% with flashes = get_flashed_messages() %}
+    {% if flashes %}
+      <ul class="container">
+      {% for message in flashes %}
+        <li>{{ message }}
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <div class="container">
+  {% block body %}{% endblock %}
+  </div>
+</div>
