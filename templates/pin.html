@@ -16,6 +16,7 @@
             <td width="64%">
             <h1>Click on the Map to Add a Garden</h1>
     <div id="map"></div>
+    <div id="plant"></div>
     </td>
             <td width="18%"></td>
         </tr>
@@ -70,6 +71,8 @@
                     var infowindow = new google.maps.InfoWindow();
                     infowindow.setContent(content);
                     infowindow.open(map,marker);
+                    text = document.getElementById('plant').innerHTML;
+                    document.getElementById('plant').innerHTML = content + text;
                   }
                 });
               };
@@ -111,11 +114,13 @@
                   data: {lati: marker.position.lat(), lngi: marker.position.lng()},
                   success: function (response){
                     var content = "";
-                    content += "<h3> Garden Name: " + response[0][0] + "</h3><br>"
+                    content += "<h3> Garden Name: " + response[0][0] + "</h3>"
                     content += "Garden Position: <br>Longitude: " + response[0][1] + "<br>Latitude: " + response[0][2] + "<br>Date Created: " + response[0][3];
                     var infowindow = new google.maps.InfoWindow();
                     infowindow.setContent(content);
                     infowindow.open(map,marker);
+                    text = document.getElementById('plant').innerHTML;
+                    document.getElementById('plant').innerHTML = content + text;
                   }
                 });
               };
