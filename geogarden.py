@@ -21,12 +21,15 @@ db.init_app(app)
 # Define initdb
 @app.cli.command('initdb')
 def initdb_command():
-	db.drop_all()
-	db.create_all()
-	db.session.add(User(username='admin', password='hunter2', user_type='admin'))
-	db.session.commit()
-	print(User.query.all())
-	print('Initialized the database.')
+  db.drop_all()
+  db.create_all()
+  db.session.add(User(username='admin', password='hunter2', user_type='admin'))
+  db.session.add(Garden(name='one', date='today', lat='39.952583', lon='-75.165222'))
+  db.session.add(Garden(name='two', date='today', lat='40.440624', lon='-79.9959'))
+  db.session.commit()
+  print(User.query.all())
+  print(Garden.query.all())
+  print('Initialized the database.')
 
 @app.before_request
 def before_request():
@@ -42,10 +45,6 @@ def get_user_id(username):
 def get_all_gardens():
 	rv = Garden.query.order_by(Garden.date).all()
 	return rv if rv else [] 
-
-def get_admin_gardens(admin_id):
-	rv = Garden.query.filter_by(admin_id=admin_id).order_by(Garden.date).all()
-	return rv if rv else []
 
 def get_contributor_gardens(user_id):
 	rv = Garden.query.filter(or_(Garden.contributor1==user_id, Garden.contributor2==user_id, Garden.contributor3==user_id))
@@ -65,6 +64,25 @@ def format_datetime(timestamp):
 @app.route('/index')
 def index():
 	return render_template('index.html')
+@app.route('/GeoGarden_home.html')
+def home():
+	return render_template('GeoGarden_home.html')
+  
+@app.route('/GeoGarden_main.html')
+def main():
+	return render_template('GeoGarden_main.html')
+  
+@app.route('/pin.html')
+def pin():
+	return render_template('pin.html')
+  
+@app.route('/garden.html')
+def viewGarden():
+	return render_template('garden.html')
+  
+@app.route('/about.html')
+def about():
+	return render_template('about.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

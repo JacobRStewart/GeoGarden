@@ -19,14 +19,15 @@ class User(db.Model):
 		return '<User {}>'.format(self.username)
 
 class Garden(db.Model):
-	garden_id = db.Column(db.Integer, primary_key=True)
-	admin_id = db.Column(db.Integer, nullable=False)
-	name = db.Column(db.String(24), nullable=False)
-	date = db.Column(db.String(24), nullable=False)
-	contributor1 = db.Column(db.String(24), default='_')
-	contributor2 = db.Column(db.String(24), default='_')
-	contributor3 = db.Column(db.String(24), default='_')
+  garden_id = db.Column(db.Integer, primary_key=True)
+  lat = db.Column(db.Integer, nullable=False)
+  lon = db.Column(db.Integer, nullable=False)
+  name = db.Column(db.String(24), nullable=False)
+  date = db.Column(db.String(24), nullable=False)
+  contributor1 = db.Column(db.String(24), default='_')
+  contributor2 = db.Column(db.String(24), default='_')
+  contributor3 = db.Column(db.String(24), default='_')
 	
 	# Format printing
-	def __repr__(self):
-		return '<Garden {}>'.format(self.date)
+def __repr__(self):
+  return '<Garden {}>'.format(self.date)
