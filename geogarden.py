@@ -4,7 +4,7 @@ from hashlib import md5
 from datetime import datetime
 from flask import Flask, request, session, url_for, redirect, render_template, abort, g, flash, _app_ctx_stack
 from werkzeug import check_password_hash, generate_password_hash
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 
 # DB model
 from models import db, User, Garden
@@ -64,25 +64,40 @@ def format_datetime(timestamp):
 @app.route('/index')
 def index():
 	return render_template('index.html')
-@app.route('/GeoGarden_home.html')
-def home():
-	return render_template('GeoGarden_home.html')
   
-@app.route('/GeoGarden_main.html')
-def main():
-	return render_template('GeoGarden_main.html')
-  
-@app.route('/pin.html')
+@app.route('/pin')
 def pin():
 	return render_template('pin.html')
   
-@app.route('/garden.html')
+@app.route('/garden')
 def viewGarden():
 	return render_template('garden.html')
   
-@app.route('/about.html')
+@app.route('/about')
 def about():
 	return render_template('about.html')
+  
+@app.route("/getMarkers", methods=['GET', 'POST'])   
+def get_markers():
+    rv = Garden.query.all()
+    d = {}
+    i = 0
+    for row in rv:
+      t =(row.lat, row.lon, row.name)
+      d[i]=t
+      i+= 1
+    return d
+    
+@app.route("/getData", methods=['GET', 'POST'])   
+def get_marker_data():
+    rv = Garden.query.filter(and_(Garden.lat == request.form['lati'], Garden.lon == request.form['lngi']))
+    di = {}
+    j = 0
+    for row in rv:
+      ti =(row.name, row.lon, row.lat, row.date)
+      di[j]=ti
+      j+= 1
+    return di
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -146,14 +161,13 @@ def profile():
 # Admin garden routes
 @app.route('/add_garden', methods=['POST'])
 def add_garden():
-	if check_availabilty(request.form['date']):
-		flash("/////////")
-	else:
-		db.session.add(Garden(name=request.form['name'], date=request.form['date'], admin_id=request.form['admin_id']))
-		db.session.commit()
-		flash('Garden created.')
-	gardens = get_admin_gardens(session['user_id'])
-	return redirect(url_for('profile'))
+  if check_availabilty(request.form['date']):
+    flash("/////////")
+  else:
+    db.session.add(Garden(name=request.form['name'], date=request.form['date'], lat=request.form['lat'], lon=request.form['lng']))
+    db.session.commit()
+    flash('Garden created.')
+  return render_template('garden.html')
 
 @app.route('/delete_garden', methods=['POST'])
 def delete_garden():

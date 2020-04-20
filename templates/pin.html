@@ -1,0 +1,133 @@
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    <link rel="stylesheet" href="../static/css/home.css">     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+    <body>
+    <table width="100%">
+        <tr>
+            <td width="18%"></td>
+            <td width="64%">
+            <h1>Click on the Map to Add a Garden</h1>
+    <div id="map"></div>
+    </td>
+            <td width="18%"></td>
+        </tr>
+    </table>
+    <script>
+
+      // In the following example, markers appear when the user clicks on the map.
+      // The markers are stored in an array.
+      // The user can then click an option to hide, show or delete the markers.
+      var map;
+      var markers = [];
+      function initMap() {
+        var pittsburgh = {lat:40.440624, lng:-79.9959};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: pittsburgh,
+          mapTypeId: 'terrain'
+        });
+        // This event listener will call addMarker() when the map is clicked.
+        map.addListener('click', function(event) {
+          addMarker(event.latLng);
+        });
+        fillMarkers();
+      }
+
+      // Adds a marker to the map and push to the array.
+      function addMarker(location) {
+        var name = prompt("Please enter name of Garden:");
+        var date = new Date();
+        var image = {
+            url: "../static/img/logo.png", // url
+            scaledSize: new google.maps.Size(40, 60), // scaled size
+          };
+        var marker = new google.maps.Marker({
+          position: location,
+          title: name,
+          map: map,
+          icon: image
+        });
+        markers.push(marker);
+            google.maps.event.addListener(marker, 'click', (function(marker){ 
+              return function(callback1) {
+                $.ajax({
+                  type: "POST",
+                  url: "/getData",
+                  data: {lati: marker.position.lat(), lngi: marker.position.lng()},
+                  success: function (response){
+                    var content = "";
+                    content += "<h3> Garden Name: " + response[0][0] + "</h3><br>"
+                    content += "Garden Position: <br>Longitude: " + response[0][1] + "<br>Latitude: " + response[0][2] + "<br>Date Created: " + response[0][3];
+                    var infowindow = new google.maps.InfoWindow();
+                    infowindow.setContent(content);
+                    infowindow.open(map,marker);
+                  }
+                });
+              };
+            })(marker));
+        $.ajax({
+        type: "POST",
+        url: "/add_garden",
+        data: {name: name, date: date, lng: location.lng(), lat: location.lat()},
+        success: alert("Garden Added")
+        });
+      }
+      function fillMarkers(callback, markers){
+        $.ajax({
+        type: "POST",
+        url: "/getMarkers",
+        data: {  },
+        success: mark
+        });
+      }
+      function mark(response) {
+          var image = {
+            url: "../static/img/logo.png", // url
+            scaledSize: new google.maps.Size(40, 60), // scaled size
+          };
+          for(key in response){
+            temp = {lat:parseFloat(response[key][0]), lng:parseFloat(response[key][1])};
+            marker = new google.maps.Marker({position: temp, title: response[key][2], icon: image, map: map});
+            markers.push(marker)
+          }
+          var bounds = new google.maps.LatLngBounds();
+          for(i=0;i<markers.length;i++) {
+            bounds.extend(markers[i].getPosition());
+            var marker = markers[i]
+            google.maps.event.addListener(marker, 'click', (function(marker){ 
+              return function(callback1) {
+                $.ajax({
+                  type: "POST",
+                  url: "/getData",
+                  data: {lati: marker.position.lat(), lngi: marker.position.lng()},
+                  success: function (response){
+                    var content = "";
+                    content += "<h3> Garden Name: " + response[0][0] + "</h3><br>"
+                    content += "Garden Position: <br>Longitude: " + response[0][1] + "<br>Latitude: " + response[0][2] + "<br>Date Created: " + response[0][3];
+                    var infowindow = new google.maps.InfoWindow();
+                    infowindow.setContent(content);
+                    infowindow.open(map,marker);
+                  }
+                });
+              };
+            })(marker));
+          }
+          map.setCenter(bounds.getCenter());
+          map.fitBounds(bounds);
+      }
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-34SSXD7ZYgVdm7fczOWNHqsYFqGdRW4&callback=initMap">
+    </script>
+    
+</body>
+</html>
