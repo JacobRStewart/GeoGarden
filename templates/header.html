@@ -20,7 +20,7 @@
     <a href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a> |
     <a href="{{ url_for('pin') }}">Add A Garden</a> |
     <a href="{{ url_for('garden') }}">Gardens</a> |
-    <a href="{{ url_for('plant') }}">Plants</a> |
+    <!-- <a href="{{ url_for('plant') }}">Plants</a> | -->
     <a href="{{ url_for('about') }}">About Us</a> 
   {% elif g.user.user_type == 'contributor' %}
     <a href="{{ url_for('index') }}">Home</a> |
@@ -28,7 +28,7 @@
       <a href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a> |
       <a href="{{ url_for('pin') }}">Add A Garden</a> |
       <a href="{{ url_for('garden') }}">Gardens</a> |
-      <a href="{{ url_for('plant') }}">Plants</a> |
+      <!-- <a href="{{ url_for('plant') }}">Plants</a> | -->
       <a href="{{ url_for('about') }}">About Us</a> 
   {% elif g.user.user_type == 'admin' %}
       <a href="{{ url_for('index') }}">Home</a> |
@@ -36,7 +36,7 @@
       <a href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a> |
       <a href="{{ url_for('pin') }}">Add A Garden</a> |
       <a href="{{ url_for('garden') }}">Gardens</a> |
-      <a href="{{ url_for('plant') }}">Plants</a> |
+      <!-- <a href="{{ url_for('plant') }}">Plants</a> | -->
       <a href="{{ url_for('about') }}">About Us</a> 
   {% else %}
     <a href="{{ url_for('index') }}">Home</a> |
