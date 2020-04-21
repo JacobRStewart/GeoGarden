@@ -1,6 +1,7 @@
 body {
-    background-color: #CCCCCC;
+    background-color: #b6e384;
     font-family: 'Abel';
+
 }
 
 p {
@@ -11,6 +12,13 @@ p {
 }
 
 h4 {
+    text-align: center;
+    font-style: normal;
+    color: #605E5E;
+    /*font-family: "Lucida Grande", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+}
+
+h6 {
     text-align: center;
     font-style: normal;
     color: #605E5E;
