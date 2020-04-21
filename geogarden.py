@@ -70,7 +70,7 @@ def pin():
 	return render_template('pin.html')
   
 @app.route('/garden')
-def viewGarden():
+def garden():
 	return render_template('garden.html')
   
 @app.route('/about')
@@ -115,7 +115,7 @@ def login():
 			flash('Successfully logged in!')
 			session['user_id'] = user.user_id
 			session['user_type'] = user.user_type
-			return redirect(url_for('profile'))
+			return redirect(url_for('index'))
 	return render_template('login.html', error=error)
 
 # Registration route
@@ -152,7 +152,7 @@ def profile():
 	if g.user.user_type == 'owner':
 		gardens = get_all_gardens()
 	elif g.user.user_type == 'admin':
-		gardens = get_admin_gardens(g.user.user_id)
+		gardens = get_all_gardens()
 	else:
 		gardens = get_contributor_gardens(g.user.username)
 		openings = get_all_gardens() # i sort through this in profile
@@ -166,7 +166,6 @@ def add_garden():
   else:
     db.session.add(Garden(name=request.form['name'], date=request.form['date'], lat=request.form['lat'], lon=request.form['lng']))
     db.session.commit()
-    flash('Garden created.')
   return render_template('garden.html')
 
 @app.route('/delete_garden', methods=['POST'])

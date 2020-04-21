@@ -1,15 +1,7 @@
+{% extends "header.html" %}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
-    <link rel="stylesheet" href="../static/css/home.css">     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</head>
-    <body>
+{% block body %}
+
     <table width="100%">
         <tr>
             <td width="18%"></td>
@@ -46,6 +38,8 @@
       // Adds a marker to the map and push to the array.
       function addMarker(location) {
         var name = prompt("Please enter name of Garden:");
+        if(name == null || name == "" )
+          return;
         var date = new Date();
         var image = {
             url: "../static/img/logo.png", // url
@@ -66,7 +60,7 @@
                   data: {lati: marker.position.lat(), lngi: marker.position.lng()},
                   success: function (response){
                     var content = "";
-                    content += "<h3> Garden Name: " + response[0][0] + "</h3><br>"
+                    content += "<h3> Garden Name: " + response[0][0] + "</h3>"
                     content += "Garden Position: <br>Longitude: " + response[0][1] + "<br>Latitude: " + response[0][2] + "<br>Date Created: " + response[0][3];
                     var infowindow = new google.maps.InfoWindow();
                     infowindow.setContent(content);
@@ -134,5 +128,4 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-34SSXD7ZYgVdm7fczOWNHqsYFqGdRW4&callback=initMap">
     </script>
     
-</body>
-</html>
+{% endblock %}
