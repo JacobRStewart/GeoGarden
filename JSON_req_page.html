@@ -106,11 +106,7 @@
 							 anHttpRequest.onreadystatechange = function() { 
 							 if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
 							 aCallback(anHttpRequest.responseText);
-							 alert("it works");
-							 }
-							 else
-							 {
-								alert("it broke");
+							 
 							 }
 							 anHttpRequest.open( "GET", aUrl, true ); 
 							 anHttpRequest.send( null ); 
@@ -121,7 +117,7 @@
 							 var client = new HttpClient();
 							 client.get(theurl, function(response) { 
 							 var response1 = JSON.parse(response);
-							 // alert(response);
+							 alert(response);
 							 document.getElementById("common_name").innerHTML = response1.common_name;
 							 document.getElementById("complete_data").innerHTML = response1.complete_data;
 							 document.getElementById("id").innerHTML = response1.id;
