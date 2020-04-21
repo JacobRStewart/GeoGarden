@@ -28,6 +28,9 @@ class Garden(db.Model):
   contributor2 = db.Column(db.String(24), default='_')
   contributor3 = db.Column(db.String(24), default='_')
   
+def __repr__(self):
+  return '<Garden {}>'.format(self.date)
+  
 class Review(db.Model):
   comment_id = db.Column(db.Integer, primary_key=True)
   plant_name = db.Column(db.String(30), nullable=False)
@@ -37,4 +40,4 @@ class Review(db.Model):
 	
 	# Format printing
 def __repr__(self):
-  return '<Garden {}>'.format(self.date)
+  return '<Review {}>'.format(self.date)
