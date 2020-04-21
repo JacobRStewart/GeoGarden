@@ -27,6 +27,13 @@ class Garden(db.Model):
   contributor1 = db.Column(db.String(24), default='_')
   contributor2 = db.Column(db.String(24), default='_')
   contributor3 = db.Column(db.String(24), default='_')
+  
+class Review(db.Model):
+  comment_id = db.Column(db.Integer, primary_key=True)
+  plant_name = db.Column(db.String(30), nullable=False)
+  user_comment = db.Column(db.String(256), nullable=False)
+  date = db.Column(db.String(24), nullable=False)
+  contributor = db.Column(db.String(24), default='_')
 	
 	# Format printing
 def __repr__(self):

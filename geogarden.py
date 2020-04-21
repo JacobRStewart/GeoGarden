@@ -88,6 +88,17 @@ def get_markers():
       i+= 1
     return d
     
+@app.route("/getPost", methods=['GET', 'POST'])
+def get_post_data():
+	rv = Review.query.all()
+	d = {}
+	i = 0
+	for row in rv:
+	  t =(row.plant_name, row.user_comment, row.date)
+	  d[i]=t
+	  i+= 1
+	return d
+	
 @app.route("/getData", methods=['GET', 'POST'])   
 def get_marker_data():
     rv = Garden.query.filter(and_(Garden.lat == request.form['lati'], Garden.lon == request.form['lngi']))

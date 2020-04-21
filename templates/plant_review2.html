@@ -1,0 +1,33 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+    <table width="100%">
+        <tr>
+            <td width="18%"></td>
+            <td width="64%">
+            <h1>Review a Plant</h1>
+    
+    
+    </td>
+            <td width="18%"><p id="plant"></p></td>
+        </tr>
+    </table>
+	<div id="plant1">
+		<input width="30%" type="text" id="plantName" placeholder="blackwood"></input>
+		<br>
+		<textarea style="resize: vertical; width: 40%; height: 100px;" type="text" id="s_msg" name="plantComment" placeholder="it is a nice plant it has chloroplasts"></textarea>
+		<br>
+		<input style="width: 30%; height: 50px; padding: 0px;" type="button" onclick="addPlant()" class="w3-button w3-grey w3-block w3-round w3-hover-green" id="comment_sub" name="comment_sub" value="Submit" />
+	</div>
+    <script type="text/javascript">
+	
+		$(document).ready(function () {
+			//your code here
+		});
+		
+    </script>
+    <!--<script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-34SSXD7ZYgVdm7fczOWNHqsYFqGdRW4&callback=initMap">
+    </script>-->
+    {% endblock %}
