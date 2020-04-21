@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    <style>
+        body {
+            background-color: #CCCCCC;
+            font-family: 'Abel';
+        }
+
+        p {
+            /*font-family: "Lucida Grande", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+            /*font-family: "Abel"*/
+            color: #605E5E;
+            font-style: initial;
+        }
+
+        h4 {
+            text-align: center;
+            font-style: normal;
+            color: #605E5E;
+            /*font-family: "Lucida Grande", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+        }
+
+        td {
+            text-align: center;
+            align-content: center;
+            text-wrap: normal;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay {
+             position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color: #CCCCCC;
+        }
+
+        .container:hover .overlay {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td width="18%"></td>
+            <td width="64%">
+                <table width="100%">
+                    <tr>
+                        <td class="w3-animate-opacity" style=""><h4>PLANT INFO</h4></td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2">
+                            <div id="num_id"><textarea style="resize: vertical; width: 100%; height: 100px;" type="number" id="plant_box_id" name="plant_box_name" placeholder="Enter a plant's common name..."></textarea></div>
+							<input style="width: 30%; height: 50px; padding: 0px;" type="button" onclick="otherFunc()" class="w3-button w3-grey w3-block w3-round w3-hover-green" id="asg_num" name="asg_subm" value="Yeet" />
+							<p id="demo"></p>
+							<p id="common_name"></p>
+							<p id="complete_data"></p>
+							<p id="id"></p>
+							<p id="link"></p>
+							<p id="scientific_name"></p>
+							<p id="slug"></p>
+							<script>
+							/*var req1 = new XMLHttpRequest();
+							var url = "https://trefle.io/api/plants?common_name=blackwood";
+
+							req1.open("GET", url, true);
+							req1.send();
+							document.getElementById("demo").innerHTML = "poop";
+							if (this.readyState == 4 && this.status == 200) {
+									var ret1 = JSON.parse(this.responseText);
+									foo(ret1);
+									
+								}
+								else
+								{
+									
+								}*/
+							 var HttpClient = function() {
+							 this.get = function(aUrl, aCallback) {
+							 var anHttpRequest = new XMLHttpRequest();
+							 anHttpRequest.onreadystatechange = function() { 
+							 if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+							 aCallback(anHttpRequest.responseText);
+							 alert("it works");
+							 }
+							 else
+							 {
+								alert("it broke");
+							 }
+							 anHttpRequest.open( "GET", aUrl, true ); 
+							 anHttpRequest.send( null ); 
+							 }
+							 }
+							 //				until we can get the response to show this single request, don't bother with the input, just keep this one url for the request
+							 var theurl='https://trefle.io/api/plants?common_name=blackwood&token=RkVzVWx3cUF3ODNHYlo2R0hkSHZRZz09';
+							 var client = new HttpClient();
+							 client.get(theurl, function(response) { 
+							 var response1 = JSON.parse(response);
+							 // alert(response);
+							 document.getElementById("common_name").innerHTML = response1.common_name;
+							 document.getElementById("complete_data").innerHTML = response1.complete_data;
+							 document.getElementById("id").innerHTML = response1.id;
+							 document.getElementById("link").innerHTML = response1.link;
+							 document.getElementById("scientific_name").innerHTML = response1.scientific_name;
+							 document.getElementById("slug").innerHTML = response1.slug;
+							 }); 
+							
+							
+							/*req1.onreadystatechange = function() {
+								if (this.readyState == 4 && this.status == 200) {
+									var ret1 = JSON.parse(this.responseText);
+									foo(ret1);
+									
+								}
+								else
+								{
+									
+									var ret1 = JSON.parse(this.responseText);
+									foo(ret1);
+								}
+								foo(url);
+							};*/
+							
+							
+							/*function foo(ret) {
+								var out = "";
+								var i;
+								for(i = 0; i < arr.length; i++) {
+									out += '<a href="' + arr[i].url + '">' +
+									arr[i].display + '</a><br>';
+								}
+								document.getElementById("demo").innerHTML = "poop";
+							}*/
+							
+							/*function otherFunc() {
+								let num = localStorage.getItem('asg');
+								if (num == 0)
+								{
+									document.getElementById("demo").innerHTML = "stinky";
+								}
+								else if (num == 3)
+								{
+									document.getElementById("demo").innerHTML = "stinky";
+								}
+								else
+								{
+									document.getElementById("demo").innerHTML = "stinky";
+								}
+							
+							}*/
+							</script>
+							
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="18%"></td>
+        </tr>
+    </table>
+    
+</body>
+</html>
