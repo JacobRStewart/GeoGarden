@@ -77,6 +77,10 @@ def garden():
 def about():
 	return render_template('about.html')
   
+@app.route('/plant')
+def plant():
+	return render_template('plant_review2.html')
+  
 @app.route("/getMarkers", methods=['GET', 'POST'])   
 def get_markers():
     rv = Garden.query.all()
